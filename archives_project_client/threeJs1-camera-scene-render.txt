@@ -1,0 +1,84 @@
+import * as THREE from '/build/three.module.js'
+import { OrbitControls } from '/jsm/controls/OrbitControls'
+
+const scene: THREE.Scene = new THREE.Scene()
+
+scene.background = new THREE.Color(0x230000);
+
+const canvas1: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById('c1');
+const canvas2: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById('c2');
+const canvas3: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById('c3');
+const canvas4: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById('c4');
+
+const camera: THREE.PerspectiveCamera = new THREE.PerspectiveCamera(75, 1, 0.01, 2000)
+const camera1: THREE.OrthographicCamera = new THREE.OrthographicCamera(-1,1,1,-1,0.1,10)
+const camera2: THREE.OrthographicCamera = new THREE.OrthographicCamera(-1,1,1,-1,0.1,10)
+const camera3: THREE.OrthographicCamera = new THREE.OrthographicCamera(-1,1,1,-1,0.1,10)
+
+
+
+const renderer: THREE.WebGLRenderer = new THREE.WebGLRenderer({antialias: true, canvas: canvas1})
+renderer.setSize(300,300)
+// document.body.appendChild(renderer.domElement)
+
+const renderer1: THREE.WebGLRenderer = new THREE.WebGLRenderer({antialias: true, canvas: canvas2}) 
+renderer1.setSize(300,300);
+
+const renderer2: THREE.WebGLRenderer = new THREE.WebGLRenderer({antialias: true, canvas: canvas3}) 
+renderer2.setSize(300,300);
+
+const renderer3: THREE.WebGLRenderer = new THREE.WebGLRenderer({antialias: true, canvas: canvas4}) 
+renderer3.setSize(300,300);
+
+const controls = new OrbitControls(camera, canvas1)
+
+const geometry: THREE.BoxGeometry = new THREE.BoxGeometry()
+const material: THREE.MeshBasicMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true })
+
+const cube: THREE.Mesh = new THREE.Mesh(geometry, material)
+scene.add(cube)
+
+camera.position.z = 1.5
+// camera1.position.z = 2;
+// camera2.position.z = 2;
+// camera3.position.z = 2;
+
+//* top down view camera 1
+// camera1.position.z = 1;
+camera1.position.y = 1;
+camera1.lookAt(new THREE.Vector3(0,0,0));
+
+//* look down the z axis 
+camera2.position.z = 1;
+
+//* look down the X axis axis 
+camera3.position.x = 1;
+camera3.lookAt(new THREE.Vector3(0,0,0));
+
+var animate = function () {
+
+    requestAnimationFrame(animate)
+
+    cube.rotation.x += 0.01;
+    cube.rotation.y += 0.01;
+
+    controls.update()
+
+    renderer.render(scene, camera)
+    renderer1.render(scene, camera1);
+    renderer2.render(scene, camera2);
+    renderer3.render(scene, camera3);
+
+}; 
+
+animate(); 
+
+
+
+
+// jtml section 4 canvas are there -->
+
+    <canvas id="c1" class="c"></canvas>
+    <canvas id="c2" class="c"></canvas>
+    <canvas id="c3" class="c"></canvas>
+    <canvas id="c4" class="c"></canvas>
