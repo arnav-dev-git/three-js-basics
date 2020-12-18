@@ -11,15 +11,17 @@ scene1.add(axesHelper1);
 const axesHelper2 = new THREE.AxesHelper(5);
 scene2.add(axesHelper2);
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.01, 1000);
-const renderer = new THREE.WebGLRenderer();
+const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.screenSpacePanning = true; //so that panning up and down doesn't zoom in/out
+// const planeGeometry1: THREE.PlaneGeometry = new THREE.PlaneGeometry()
+// const planeGeometry2: THREE.PlaneGeometry = new THREE.PlaneGeometry()
 const planeGeometry1 = new THREE.PlaneGeometry(2, 25);
 const planeGeometry2 = new THREE.PlaneGeometry(2, 25);
-//const texture1 = new THREE.TextureLoader().load("img/grid.png")
-//const texture2 = new THREE.TextureLoader().load("img/grid.png")
+// const texture1 = new THREE.TextureLoader().load("img/grid.png")
+// const texture2 = new THREE.TextureLoader().load("img/grid.png")
 let mipmap = (size, color) => {
     const imageCanvas = document.createElement("canvas");
     const context = imageCanvas.getContext("2d");
